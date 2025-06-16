@@ -47,5 +47,6 @@ function sendLocation() {
   );
 }
 
+sendLocation();
 // Run every 15 seconds
 setInterval(sendLocation, 15000)
