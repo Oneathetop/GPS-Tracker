@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Live GPS Viewer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; padding: 2rem; }
+    h1 { color: #333; }
+    .card {
+      padding: 1rem;
+      background-color: #f3f3f3;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 400px;
+    }
+    .value {
+      font-size: 1.1rem;
+      margin-top: 1rem;
+    }
+  </style>
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+</head>
+<body>
+  <h1>Live GPS Viewer</h1>
+  <div class="card">
+    <div class="value" id="lat">Latitude: </div>
+    <div class="value" id="lon">Longitude: </div>
+    <div class="value" id="time">Timestamp: </div>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBDPESPPxWxEeSRv5kAw-8zEvCorN0f4iw",
+      authDomain: "gps-tracker-81070.firebaseapp.com",
+      databaseURL: "https://gps-tracker-81070-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "gps-tracker-81070",
+      storageBucket: "gps-tracker-81070.firebasestorage.app",
+      messagingSenderId: "719663125263",
+      appId: "1:719663125263:web:88d7a562137aac2fdd647a",
+      measurementId: "G-89NKPG9TZ4"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    db.ref("myPhoneLocation").on("value", (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        document.getElementById("lat").innerText = `Latitude: ${data.latitude}`;
+        document.getElementById("lon").innerText = `Longitude: ${data.longitude}`;
+        document.getElementById("time").innerText = `Timestamp: ${new Date(data.timestamp).toLocaleString()}`;
+      }
+    });
+  </script>
+</body>
+</html>
