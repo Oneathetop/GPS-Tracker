@@ -49,5 +49,6 @@ function sendLocation() {
 // Start tracking on button click
 document.getElementById("startBtn").addEventListener("click", () => {
   sendLocation(); // trigger first and ask permission
-  setInterval(sendLocation, 15000);
+  //setInterval(sendLocation, 15000);
+  navigator.geolocation.watchPosition(sendLocation,15000);
 });
