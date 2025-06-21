@@ -50,5 +50,17 @@ function sendLocation() {
 document.getElementById("startBtn").addEventListener("click", () => {
   sendLocation(); // trigger first and ask permission
   //setInterval(sendLocation, 15000);
-  navigator.geolocation.watchPosition(sendLocation,15000);
+  //navigator.geolocation.watchPosition(sendLocation,15000);
+  navigator.geolocation.watchPosition(
+  sendLocation,
+  (error) => {
+    document.getElementById("status").innerText = `Error: ${error.message}`;
+  },
+  {
+    enableHighAccuracy: true,
+    maximumAge: 0,
+    timeout: 10000
+  }
+);
+
 });
